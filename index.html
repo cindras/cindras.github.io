@@ -8,5 +8,117 @@
 <p> 当然了，研究一点编程和其他乱七八糟的知识也在我的兴趣范围内 </p>   
 <font color="red"> 不要调戏我的看板娘哦</font>
 <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+demo/login.html
+  @@ -56,7 +56,7 @@
+ 	margin-bottom: 20px;
+ 	border-radius: 20px;
+ }
+ #stage a {
+ #stage button {
+ 	position: absolute;
+ 	width: 2em;
+ 	height: 2em;
+ @@ -134,8 +134,8 @@
+ 			</div>
+ 			<canvas class="mb-4" id="live2d" width="800" height="800"></canvas>
+ 		</div>
+ 		<a id="info" href="javascript:info()"><i class="fa fa-lg fa-info"></i></a>
+ 		<a id="refresh" href="javascript:refresh()"><i class="fa fa-lg fa-refresh"></i></a>
+ 		<button class="btn btn-link" id="info"><i class="fa fa-lg fa-info"></i></button>
+ 		<button class="btn btn-link" id="refresh"><i class="fa fa-lg fa-refresh"></i></button>
+ 	</div>
+ 	<h1 class="h3 mb-3 fw-normal">看板娘登陆平台</h1>
+ 	<label for="room" class="sr-only">用户名</label>
+ @@ -178,7 +178,8 @@ <h1 class="h3 mb-3 fw-normal">看板娘登陆平台</h1>
+ 		return;
+ 	}
 
+ 	let apiPath = "https://live2d.fghrsh.net/api", state = 0,
+ 	const apiPath = "https://live2d.fghrsh.net/api";
+ 	let state = 0, loading = false,
+ 		modelId = localStorage.getItem("modelId"),
+ 		modelTexturesId = localStorage.getItem("modelTexturesId");
+ 	if (modelId === null) {
+ @@ -209,7 +210,7 @@ <h1 class="h3 mb-3 fw-normal">看板娘登陆平台</h1>
+ 				setTimeout(() => {
+ 					state = 2;
+ 					coverPosition("80%");
+ 					document.getElementById("refresh").setAttribute("href", "javascript:refresh()");
+ 					loading = false;
+ 				}, 1000);
+ 			});
+ 	}
+ @@ -227,20 +228,21 @@ <h1 class="h3 mb-3 fw-normal">看板娘登陆平台</h1>
+ 		document.getElementById("cover").style.bottom = pos;
+ 	}
+
+ 	window.info = function() {
+ 	document.getElementById("info").addEventListener("click", () => {
+ 		fetch("https://v1.hitokoto.cn")
+ 			.then(response => response.json())
+ 			.then(result => {
+ 				alert("「" + result.hitokoto + "」——" + result.from);
+ 			});
+ 	};
+ 	});
+
+ 	window.refresh = function() {
+ 	document.getElementById("refresh").addEventListener("click", () => {
+ 		if (loading) return;
+ 		state = 0;
+ 		coverPosition("10%");
+ 		document.getElementById("refresh").setAttribute("href", "javascript:void(0)");
+ 		loading = true;
+ 		setTimeout(loadRandModel, 1000);
+ 	};
+ 	});
+
+ 	document.getElementById("handle").addEventListener("click", () => {
+ 		if (state === 1) {
+    6  waifu-tips.json 
+
+@@ -1,6 +1,6 @@
+ {
+ 	"mouseover": [{
+ 		"selector": "#waifu #live2d",
+ 		"selector": "#live2d",
+ 		"text": ["干嘛呢你，快把手拿开～～", "鼠…鼠标放错地方了！", "你要干嘛呀？", "喵喵喵？", "怕怕(ノ≧∇≦)ノ", "非礼呀！救命！", "这样的话，只能使用武力了！", "我要生气了哦", "不要动手动脚的！", "真…真的是不知羞耻！", "Hentai！"]
+ 	}, {
+ 		"selector": "#waifu-tool .fa-comment",
+ @@ -63,7 +63,7 @@
+ 		"selector": ".links-of-author",
+ 		"text": ["这里是主人的常驻地址哦。", "这里有主人的联系方式！"]
+ 	}, {
+ 		"selector": "#qrcode",
+ 		"selector": ".followme",
+ 		"text": ["手机扫一下就能继续看，很方便呢～", "扫一扫，打开新世界的大门！"]
+ 	}, {
+ 		"selector": ".fancybox img, img.medium-zoom-image",
+ @@ -175,7 +175,7 @@
+ 		"text": ["哇，快看看这个精彩评论！", "如果有疑问，请尽快留言哦～"]
+ 	}],
+ 	"click": [{
+ 		"selector": "#waifu #live2d",
+ 		"selector": "#live2d",
+ 		"text": ["是…是不小心碰到了吧…", "萝莉控是什么呀？", "你看到我的小熊了吗？", "再摸的话我可要报警了！⌇●﹏●⌇", "110 吗，这里有个变态一直在摸我(ó﹏ò｡)", "不要摸我了，我会告诉老婆来打你的！", "干嘛动我呀！小心我咬你！", "别摸我，有什么好摸的！"]
+ 	}, {
+ 		"selector": ".veditor",
+    4  waifu.css 
+
+ @@ -66,14 +66,14 @@
+ 	color: #0099cc;
+ }
+
+ #waifu #live2d {
+ #live2d {
+ 	cursor: grab;
+ 	height: 300px;
+ 	position: relative;
+ 	width: 300px;
+ }
+
+ #waifu #live2d:active {
+ #live2d:active {
+ 	cursor: grabbing;
+ }
 
